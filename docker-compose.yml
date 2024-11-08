@@ -1,0 +1,26 @@
+services:
+  mbb-be:
+    build:
+      context: ./mbb-be
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+    volumes:
+      - ./mbb-be:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm run dev
+
+  mbb-fe:
+    build:
+      context: ./mbb-fe
+      dockerfile: Dockerfile
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    volumes:
+      - ./mbb-fe:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm run dev
